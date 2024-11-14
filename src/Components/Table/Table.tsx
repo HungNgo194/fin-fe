@@ -3,32 +3,19 @@ import { testIncomeStatementData } from "./testData";
 
 const data = testIncomeStatementData;
 
-type Props = {};
+type Props = {
+  config: any;
+  data: any;
+};
 
 type Company = (typeof data)[0];
 
-const config = [
-  {
-    label: "Comapny Name",
-    render: (company: Company) => company.acceptedDate,
-  },
-
-  {
-    label: "Cost of Revenue",
-    render: (company: Company) => company.costOfRevenue,
-  },
-];
-
-const Table = (props: Props) => {
-  const renderedRows = data.map((company) => {
+const Table = ({ config, data }: Props) => {
+  const renderedRows = data.map((company: any) => {
     return (
       <tr key={company.cik}>
         {config.map((val: any) => {
-          return (
-            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-              {val.render(company)}
-            </td>
-          );
+          return <td className="p-3">{val.render(company)}</td>;
         })}
       </tr>
     );
@@ -45,13 +32,13 @@ const Table = (props: Props) => {
     );
   });
   return (
-    <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
+    <div className="bg-white shadow rounded-lg mt-4 ml-4 mb-4 p-4 sm:p-6 xl:p-8">
       <table className="min-w-full divide-y divide=gray-200 m-5">
         <thead>{renderedHeaders}</thead>
         <tbody>{renderedRows}</tbody>
       </table>
     </div>
-  )
+  );
 };
 
 export default Table;
