@@ -4,6 +4,7 @@ import { CompanyProfile } from "../../company";
 import { getCompanyProfile } from "../../api";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import CompanyDashboard from "../../Components/CompanyDashboard/CompanyDashboard";
+import Title from "../../Components/Title/Title";
 
 interface Props {}
 
@@ -21,12 +22,17 @@ const CompanyPage = (props: Props) => {
 
   return (
     <>
-      <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
-        
-        <Sidebar />
-        <CompanyDashboard />
-
-      </div>
+      { company ? (
+        <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
+          <Sidebar />
+          <CompanyDashboard ticker={ticker!}>
+            <Title title="Company Name" subTitle={company.companyName} />
+          </CompanyDashboard>
+        </div>
+      ) : (
+        <div>Company Not Found!</div>
+      )
+      }
     </>
   );
 };
