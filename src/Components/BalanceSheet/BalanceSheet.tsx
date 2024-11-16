@@ -3,6 +3,7 @@ import { CompanyBalanceSheet } from "../../company";
 import { useOutletContext } from "react-router";
 import { getBalanceSheet } from "../../api";
 import RatioList from "../RatioList/RatioList";
+import Spinners from "../Spinner/Spinners";
 
 type Props = {};
 
@@ -63,20 +64,20 @@ const config = [
 
 const BalanceSheet = (props: Props) => {
   const ticker = useOutletContext<string>();
-  const [balanceSheet, setBalanceSheet] = useState<CompanyBalanceSheet>();
+  const [companyData, setCompanyData] = useState<CompanyBalanceSheet>();
   useEffect(() => {
-    const getData = async () => {
+    const getCompanyData = async () => {
       const value = await getBalanceSheet(ticker!);
-      setBalanceSheet(value?.data[0]);
+      setCompanyData(value?.data[0]);
     };
-    getData();
-  });
+    getCompanyData();
+  }, []);
   return (
     <>
-      {balanceSheet ? (
-        <RatioList config={config} data={balanceSheet} />
+      {companyData ? (
+        <RatioList config={config} data={companyData} />
       ) : (
-        <h1>Company Not Found!</h1>
+        <Spinners />
       )}
     </>
   );

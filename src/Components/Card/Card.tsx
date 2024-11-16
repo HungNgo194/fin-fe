@@ -21,7 +21,7 @@ const Card: React.FC<Props> = ({
       key={id}
       id={id}
     >
-      <Link className="font-bold text-center text-veryDarkViolet md:text-left" to={`/company/${searchResult.symbol}`}>
+      <Link className="font-bold text-center text-veryDarkViolet md:text-left" to={`/company/${searchResult.symbol}/company-profile`}>
         {searchResult.name} ({searchResult.symbol})
       </Link>
       <p className="text-veryDarkBlue">{searchResult.currency}</p>
